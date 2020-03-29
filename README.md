@@ -1,15 +1,15 @@
 # Covid-19 Illinois
 
 This repository is an R script designed to plot Illinois-specific graphs of the
-Covid-19 epidemic within the state. It uses county-level data [released by the
-New York Times](https://github.com/nytimes/covid-19-data). These data are split
-up according to the following particular regions of Illinois: Cook county
-(which includes the city of Chicago), the collar counties (i.e., DuPage, Kane,
-Lake, McHenry, and Will counties), and outside the Chicago metro area (i.e.,
-outside of Cook and collar counties). The reason for dividing into these three
-areas was to look at how Covid-19 cases are trending across three roughly
-equal areas by population. That is, there are about 4 million people in each
-of these three areas.
+Covid-19 (coronavirus) epidemic within the state. It uses county-level data
+[released by the New York Times](https://github.com/nytimes/covid-19-data).
+These data are split up according to the following particular regions of
+Illinois: Cook county (which includes the city of Chicago), the collar counties
+(i.e., DuPage, Kane, Lake, McHenry, and Will counties), and outside the Chicago
+metro area (i.e., outside of Cook and collar counties). The reason for dividing
+into these three areas was to look at how Covid-19 cases are trending across
+three roughly equal areas by population. That is, there are about 4 million
+people in each of these three areas.
 
 The population of Cook county, the collar counties, and the entire state of
 Illinois are taken from each county's and the state's Wikipedia pages.
@@ -37,5 +37,7 @@ until later in March.
 
 ## Contribute
 
-Feel free to report any [issues](/issues) or to make [pull requests](/pulls).
+Feel free to report any
+[issues](https://github.com/mchladek/covid-19-il/issues) or to make [pull
+requests](https://github.com/mchladek/covid-19-il/pulls).
 
