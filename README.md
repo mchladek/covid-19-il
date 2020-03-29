@@ -14,6 +14,8 @@ people in each of these three areas.
 The population of Cook county, the collar counties, and the entire state of
 Illinois are taken from each county's and the state's Wikipedia pages.
 
+Resulting graphs can be viewed on my blog [here](https://mchladek.me/post/covid-19-il/).
+
 ## Usage
 
 Running this R script will download the raw county-level data from the New York
