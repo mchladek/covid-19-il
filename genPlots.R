@@ -1,11 +1,10 @@
 require(readr)
-require(curl)
 require(dplyr)
 require(ggplot2)
 
 # load data
 counties <-
-  read_csv(curl("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"),
+  read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv",
            col_types = cols(date = col_date(format = "%Y-%m-%d")))
 
 # exact Illinois-specific data and fill region
