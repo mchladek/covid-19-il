@@ -27,6 +27,33 @@ pops <- c("Cook County" = 5194675,
           "Collar Counties" = 916924 + 677560 + 703462 + 308760 + 515269,
           "Outside Chi Metro" = (12671821 - (5194675 + 916924 + 677560 + 703462 + 308760 + 515269)))
 
+# get first day 100 cases reached for each region
+il_counties %>%
+  group_by(date, Region) %>%
+  summarise(count = sum(cases)) %>%
+  filter(count >= 100, Region == "Cook County") %>%
+  arrange(date) %>%
+  .[[1, 1]] %>%
+  c("Cook County" = .) -> first100
+
+il_counties %>%
+  group_by(date, Region) %>%
+  summarise(count = sum(cases)) %>%
+  filter(count >= 100, Region == "Collar Counties") %>%
+  arrange(date) %>%
+  .[[1, 1]] -> first100Collar
+
+first100 <- append(first100, c("Collar Counties" = first100Collar))
+
+il_counties %>%
+  group_by(date, Region) %>%
+  summarise(count = sum(cases)) %>%
+  filter(count >= 100, Region == "Outside Chi Metro") %>%
+  arrange(date) %>%
+  .[[1, 1]] -> first100Out
+
+first100 <- append(first100, c("Outside Chi Metro" = first100Out))
+
 # generate plot of overall cases by region
 cases <- il_counties %>%
   filter(date >= march) %>%
@@ -71,11 +98,29 @@ casesLog <- il_counties %>%
   filter(date >= march) %>%
   group_by(date, Region) %>%
   summarise(count = sum(cases)) %>%
-  ggplot(aes(x = date, y = count)) +
+  mutate(daysFrom100 = as.numeric(date - first100[Region])) %>%
+  filter(daysFrom100 >= 0) %>%
+  ggplot(aes(x = daysFrom100, y = count)) +
   geom_line(aes(color = Region)) +
   geom_point(aes(color = Region), size = 1) +
-  scale_y_continuous(trans = "log10") +
-  labs(x = "Date", y = "Number of Cases (log)",
+  stat_function(fun = function(.x) (2^(.x)*100), inherit.aes = F,
+                color = "grey") +
+  annotate("text", x=5, y=8000, label="Doubles every day", color = "grey") +
+  stat_function(fun = function(.x) (2^(.x/2)*100), inherit.aes = F,
+                color = "grey") +
+  annotate("text", x=11, y=8000, label="...every 2 days", color = "grey") +
+  stat_function(fun = function(.x) (2^(.x/3)*100), inherit.aes = F,
+                color = "grey") +
+  annotate("text", x=18, y=8000, label="...every 3 days", color = "grey") +
+  stat_function(fun = function(.x) (2^(.x/7)*100), inherit.aes = F,
+                color = "grey") +
+  annotate("text", x=18, y=800, label="...every week", color = "grey") +
+  stat_function(fun = function(.x) (2^(.x/30)*100), inherit.aes = F,
+                color = "grey") +
+  annotate("text", x=19, y=200, label="...every month", color = "grey") +
+  scale_y_continuous(trans = "log10", limits = c(100, 10000)) +
+  scale_x_continuous(limits = c(0, 20)) +
+  labs(x = "Days Since 100th Case", y = "Number of Cases",
        title = "Total Number of Covid-19 Cases in Illinois by Region (Log Scale)",
        caption = "Data from The New York Times, based on reports from state and local health agencies") +
   theme_minimal(base_size = 14) +
