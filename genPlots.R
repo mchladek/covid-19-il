@@ -46,17 +46,17 @@ png(filename = "cases.png", width = 800, height = 675)
 plot(cases)
 dev.off()
 
-# generate plot of cases per capita by region
+# generate plot of cases per 100k residents by region
 casesPerCap <- il_counties %>%
   filter(date >= march) %>%
   group_by(date, Region) %>%
   summarise(count = sum(cases)) %>%
-  mutate(countPerCap = count/pops[Region]) %>%
+  mutate(countPerCap = (count * 100000) / pops[Region]) %>%
   ggplot(aes(x = date, y = countPerCap)) +
   geom_line(aes(color = Region)) +
   geom_point(aes(color = Region), size = 1) +
-  labs(x = "Date", y = "Number of Cases Per Capita",
-       title = "Number of Covid-19 Cases Per Capita in Illinois by Region",
+  labs(x = "Date", y = "Number of Cases Per 100k Residents",
+       title = "Number of Covid-19 Cases Per 100k Residents in Illinois by Region",
        caption = "Data from The New York Times, based on reports from state and local health agencies") +
   theme_minimal(base_size = 14) +
   theme(plot.title = element_text(hjust = 0.5),
