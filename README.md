@@ -24,10 +24,15 @@ following plots based on these data. The raw CSV file and generated PNG images
 will be saved within the working directory of the script.
 
 * Number of Covid-19 cases by region
-* Cases per capita by region
-* Number of cases by region on a logarthmic scale
+* Cases per 100k residents by region
+* Number of cases by region on a logarthmic scale with reference lines
 * Number of deaths by region
 * Mortality rate (deaths/cases) by region
+
+For convenience, a bash script (`run.sh`) may be run to automatically run the script and
+update a related blog post assuming the global variables in the script are accurately
+updated, the blog post is written using Hugo with the `lastmod` page parameter being on
+the 4th line of the TOML front matter, and version control uses Mercurial.
 
 ## Notes
 
@@ -42,4 +47,3 @@ until later in March.
 Feel free to report any
 [issues](https://github.com/mchladek/covid-19-il/issues) or to make [pull
 requests](https://github.com/mchladek/covid-19-il/pulls).
-
