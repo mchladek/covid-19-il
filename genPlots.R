@@ -118,8 +118,8 @@ casesLog <- il_counties %>%
   stat_function(fun = function(.x) (2^(.x/30)*100), inherit.aes = F,
                 color = "grey") +
   annotate("text", x=19, y=200, label="...every month", color = "grey") +
-  scale_y_continuous(trans = "log10", limits = c(100, 10000)) +
-  scale_x_continuous(limits = c(0, 20)) +
+  scale_y_continuous(trans = "log10", limits = c(100, 20000)) +
+  scale_x_continuous(limits = c(0, 30)) +
   labs(x = "Days Since 100th Case", y = "Number of Cases",
        title = "Total Number of Covid-19 Cases in Illinois by Region (Log Scale)",
        caption = "Data from The New York Times, based on reports from state and local health agencies") +
